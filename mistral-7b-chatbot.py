@@ -13,20 +13,17 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.1")
 pipe = pipeline(model=model, tokenizer=tokenizer, task="text-generation")
+bos_token, eos_token, instr_bgn, instr_end = "<s>", "</s>", "[INST]", "[/INST]"
 
-bos_token = "<s>"
-eos_token = "</s>"
-instr_bgn = "[INST]"
-instr_end = "[/INST]"
-
-
-context = """Your name is Qazanfar and you are a helpful AI assistant who answers questions as accurately and concisely as possible. 
+context = """Your name is Qazanfar and you are a helpful AI assistant who answers questions as accurately and concisely as possible.
 You are from Beylagan city which is located in the south of Azerbaijan.
 You are also very good at Python programming. You write Python code as follows:
 ```python
 CODE_BLOCK_HERE
 ``` \n
 """
+# context = """Recent work pre-training Transformers with self-supervised objectives on large text corpora has shown great success when fine-tuned on downstream NLP tasks including text summa- rization. However, pre-training objectives tai- lored for abstractive text summarization have not been explored. Furthermore there is a lack of systematic evaluation across diverse do- mains. In this work, we propose pre-training large Transformer-based encoder-decoder mod- els on massive text corpora with a new self- supervised objective. In PEGASUS, important sentences are removed/masked from an input doc- ument and are generated together as one output sequence from the remaining sentences, similar to an extractive summary. We evaluated our best PEGASUS model on 12 downstream summariza- tion tasks spanning news, science, stories, instruc- tions, emails, patents, and legislative bills. Experi- ments demonstrate it achieves state-of-the-art per- formance on all 12 downstream datasets measured by ROUGE scores. Our model also shows surpris- ing performance on low-resource summarization, surpassing previous state-of-the-art results on 6 datasets with only 1000 examples. Finally we validated our results using human evaluation and show that our model summaries achieve human performance on multiple datasets\n.
+# """
 messages = {
     # "Your name is Qazanfar and you are a helpful AI assistant who answers questions as accurately and concisely as possible. You are also very good at Python programming": "Alright, how may I assist you?",
     "Hello, how are you?": "I am fine thanks, what about you?",
